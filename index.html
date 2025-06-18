@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en" style="background-color: #222529;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Thief</title>
+    <link rel="icon" href="/favicon.png" type="image/png">
+	<script src="https://www.unpkg.com/odyc@0.0.106/dist/index.global.js"></script>
+    <script src="/assets.js"></script>
+</head>
+<body>
+    <script>
+        const palletes = {
+            // 0,1,2,3,4,5
+            'green': [
+                '#377a20', // border
+                '#59c135', // top-right, bright  (diamond)
+                '#73df4e', // top-left, brightest (diamond)
+                '#dae6ff', // light, white
+                '#489f29', // bottom-right, darkest (diamond)
+                '#53b531' // bottom-left, dark (diamond)
+            ],
+            // 6,7,8,9,a,b
+            'blue': [
+                '#224a9a',
+                '#3871e4',
+                '#769be4',
+                '#dae6ff',
+                '#285cc4',
+                '#5589ef'
+            ],
+            // c,d,e,f,g,h
+            'red': [
+                '#75141a',
+                '#ca2d38',
+                '#df3b46',
+                '#dae6ff',
+                '#9a131d',
+                '#b4202a'
+            ],
+            // i,j,k,l,m,o
+            'yellow': [
+                '#bab715',
+                '#efec17',
+                '#fffc40',
+                '#dae6ff',
+                '#cac722',
+                '#e4e11b'
+            ],
+        };
+
+        function generateGem() {
+            const colors = ['green', 'blue', 'red', 'yellow'];
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+
+            const shapes = ['circle', 'diamond', 'square', 'star'];
+            const randomShape = shapes[Math.floor(Math.random() * shapes.length)];
+
+            const spriteRows = gameConfig.sprites[randomShape].split("\n").map((row) => `..${row}..`);
+            spriteRows.push("....................");
+            spriteRows.unshift("....................");
+
+            let sprite = spriteRows.join("\n");
+
+            const colorSymbols = {
+                green: ['0', '1', '2', '3', '4', '5'],
+                blue: ['6', '7', '8', '9', 'a', 'b'],
+                red: ['c', 'd', 'e', 'f', 'g', 'h'],
+                yellow: ['i', 'j', 'k', 'l', 'm', 'n']
+            };
+
+            const pallete = palletes[randomColor];
+            const symbols = colorSymbols[randomColor];
+
+            sprite = sprite.split("").map((s) => {
+                if (s === "\n" || s === "." || s === "\t") {
+                    return s;
+                }
+
+                const newSymbol = symbols[+s];
+                if(!newSymbol) {
+                    return s;
+                }
+
+                return newSymbol;
+            }).join("");
+
+            return {
+                sprite,
+                color: randomColor
+            };
+        }
+
+        const game = odyc.createGame({
+        background: "#222529",
+        dialogInternvalMs: 15,
+        controls: {
+          LEFT: ["KeyA", "ArrowLeft"],
+          RIGHT: ["KeyD", "ArrowRight"],
+          UP: ["KeyW", "ArrowUp"],
+          DOWN: ["KeyS", "ArrowDown"],
+          ACTION: ["Enter", "Space"],
+        },
+        cellWidth: 20,
+        cellHeight: 20,
+        screenWidth: 5,
+        screenHeight: 7,
+        colors: [
+            ...palletes.green,
+            ...palletes.blue,
+            ...palletes.red,
+            ...palletes.yellow,
+            '#40434a', // o
+        ],
+        player: {
+            onInput: (input) => {
+                if(input === "ACTION") {
+                    alert("Action triggered!")
+                }
+            },
+          sprite: `
+          ooo..............ooo
+          o..................o
+          o..................o
+          ....................
+          ....................
+          ....................
+          ....................
+          ....................
+          ....................
+          ....................
+          ....................
+          ....................
+          ....................
+          ....................
+          ....................
+          ....................
+          o..................o
+          o..................o
+          ooo..............ooo
+          `,
+          position: [2, 3],
+        },
+        onInput: (input) => {
+            if(input === 'ACTION') {
+                alert('action');
+            }
+        },
+        templates: {
+          g: {
+            solid: false,
+            sprite: ``
+          }
+        },
+        map: `
+            ggggg
+            ggggg
+            ggggg
+            ggggg
+            ggggg
+            ggggg
+            ggggg
+            `,
+      });
+
+      let gems = {};
+
+      for(let x = 0; x < game.width; x++) {
+        for(let y = 0; y < game.height; y++) {
+            const gem = generateGem();
+            gems[`${x}_${y}`] = gem.color;
+            game.setCell(x, y, {
+                sprite: gem.sprite,
+            });
+        }
+      }
+
+    </script>
+</body>
+</html>
