@@ -1,6 +1,3 @@
-// ===== Color Thief — gameplay =====
-// The only scene with a live board. State lives in closures captured by the
-// player's onInput, so each heist is fully self-contained.
 let ctGameScene = null;
 
 function openGameScene(difficulty) {
@@ -12,7 +9,7 @@ function openGameScene(difficulty) {
 
   const scene = odyc.createGame({
     background: '#222529',
-    dialogInternvalMs: 5, // fast typewriter
+    dialogInternvalMs: 5,
     colors: PALETTE,
     cellWidth: 20,
     cellHeight: 20,
@@ -26,7 +23,7 @@ function openGameScene(difficulty) {
       ACTION: ['Enter', 'Space'],
     },
     templates: {
-      '.': { solid: false, sprite: null }, // transparent floor; gems drawn via setCell
+      '.': { solid: false, sprite: null },
     },
     map: emptyMap(cfg.w, cfg.h),
     player: {
@@ -54,7 +51,6 @@ function openGameScene(difficulty) {
     const group = board.steal(x, y);
 
     if (!group) {
-      // empty cell or a lone gem — nothing to take
       Sound.play(scene, 'HIT');
       return;
     }
@@ -79,7 +75,6 @@ function openGameScene(difficulty) {
     const newRecord = score > prevBest;
     Sound.play(scene, won ? 'POWERUP' : 'FALL');
 
-    // brief pause so the final steal is visible before the screen changes
     setTimeout(
       () => openGameOverScene({ won, score, stolen, difficulty, newRecord }),
       won ? 600 : 380,

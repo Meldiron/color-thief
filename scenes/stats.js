@@ -1,4 +1,3 @@
-// ===== Color Thief — statistics =====
 async function openStatsScene() {
   const scene = createBaseGame();
 

@@ -1,4 +1,3 @@
-// ===== Color Thief — difficulty select =====
 async function openDifficultyScene() {
   const scene = createBaseGame();
 

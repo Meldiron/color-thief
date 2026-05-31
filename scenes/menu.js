@@ -1,4 +1,3 @@
-// ===== Color Thief — main menu =====
 async function openMenuScene() {
   const scene = createBaseGame();
 

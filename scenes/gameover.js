@@ -1,4 +1,3 @@
-// ===== Color Thief — heist results =====
 async function openGameOverScene({ won, score, stolen, difficulty, newRecord }) {
   const scene = createBaseGame();
   const recordLine = newRecord ? '<1>NEW BEST!<1>\n\n' : '';

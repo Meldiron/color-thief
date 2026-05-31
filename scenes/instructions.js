@@ -1,4 +1,3 @@
-// ===== Color Thief — how to play =====
 async function openInstructionsScene() {
   const scene = createBaseGame();
 

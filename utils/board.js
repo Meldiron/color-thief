@@ -1,7 +1,3 @@
-// ===== Color Thief — board model (pure game logic, no rendering) =====
-// A SameGame / collapse board: steal a connected cluster of same-colored gems,
-// the rest fall down, and emptied columns slide left.
-//   grid[x][y] = color name | null   (y = 0 top; gravity pulls toward y = H-1)
 class Board {
   constructor(width, height, colorCount) {
     this.W = width;
@@ -15,8 +11,6 @@ class Board {
     return this.palette[Math.floor(Math.random() * this.palette.length)];
   }
 
-  // Fill the vault, re-rolling until at least one legal move exists so the
-  // player never opens onto a dead board.
   reset() {
     do {
       this.grid = [];
@@ -31,7 +25,6 @@ class Board {
     return this.grid[x][y];
   }
 
-  // Flood-fill the connected (4-directional) cluster of same-colored gems.
   findGroup(sx, sy) {
     const color = this.grid[sx][sy];
     if (!color) return [];
@@ -50,8 +43,6 @@ class Board {
     return group;
   }
 
-  // Steal the cluster at (x, y) if it's 2+ gems, then collapse.
-  // Returns the stolen group, or null if the move was illegal.
   steal(x, y) {
     const group = this.findGroup(x, y);
     if (group.length < 2) return null;
@@ -60,8 +51,6 @@ class Board {
     return group;
   }
 
-  // Gravity within each column, then drop fully-empty columns and slide the
-  // rest to the left.
   collapse() {
     for (let x = 0; x < this.W; x++) {
       const remaining = this.grid[x].filter((c) => c !== null);
@@ -79,7 +68,6 @@ class Board {
     return this.grid.every((col) => col.every((c) => c === null));
   }
 
-  // Any cluster of 2+ left to take?
   hasMoves() {
     for (let x = 0; x < this.W; x++) {
       for (let y = 0; y < this.H; y++) {

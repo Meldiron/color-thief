@@ -1,4 +1,3 @@
-// ===== Color Thief — welcome / title splash =====
 async function openWelcomeScene() {
   const scene = createBaseGame();
   const best = Store.num('best');
