@@ -7,14 +7,14 @@ async function openGameOverScene({ won, score, stolen, difficulty, newRecord }) 
       `<3>VAULT CLEARED!<3>\n\n` +
         `A flawless heist. You emptied the entire vault.\n\n` +
         `Score: <3>${score}<3>\nGems stolen: <3>${stolen}<3>\n\n` +
-        `${recordLine}<2>press SPACE to continue<2>`,
+        `${recordLine}<2>Press SPACE<2>`,
     );
   } else {
     await scene.openMessage(
       `<9>NO MOVES LEFT<9>\n\n` +
         `The vault is picked clean of easy pickings.\n\n` +
         `Score: <3>${score}<3>\nGems stolen: <3>${stolen}<3>\n\n` +
-        `${recordLine}<2>press SPACE to continue<2>`,
+        `${recordLine}<2>Press SPACE<2>`,
     );
   }
 

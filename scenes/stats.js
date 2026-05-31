@@ -14,7 +14,7 @@ async function openStatsScene() {
       `Vaults cleared: <0>${vaults}<0>\n\n` +
       `<2>By difficulty<2>\n` +
       `Easy: ${Store.num('best_easy')}\nMedium: ${Store.num('best_medium')}\nHard: ${Store.num('best_hard')}\n\n\n` +
-      `<2>press SPACE to go back<2>`,
+      `<2>Press SPACE to go back<2>`,
   );
 
   openMenuScene();

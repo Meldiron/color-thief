@@ -1,7 +1,7 @@
 const DIFFICULTIES = {
-  easy:   { key: 'easy',   label: 'Easy',   w: 5, h: 7, colors: 3 },
-  medium: { key: 'medium', label: 'Medium', w: 5, h: 7, colors: 4 },
-  hard:   { key: 'hard',   label: 'Hard',   w: 6, h: 8, colors: 4 },
+  easy:   { key: 'easy',   label: 'Easy',   w: 5, h: 5, colors: 3 },
+  medium: { key: 'medium', label: 'Medium', w: 6, h: 6, colors: 4 },
+  hard:   { key: 'hard',   label: 'Hard',   w: 7, h: 7, colors: 4 },
 };
 
 function scoreFor(groupSize) {
